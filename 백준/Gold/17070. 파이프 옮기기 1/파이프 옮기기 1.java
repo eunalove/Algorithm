@@ -1,3 +1,9 @@
+/*
+역시 dfs는 하늘에 빌어야 한다
+파이프가 두 칸을 차지하므로 뒤에 끝쪽 점만 체크한다
+그리고 매개변수 state를 가로,세로,대각선으로 나누어준다
+각 dfs케이스에서 인덱스에 벗어나지 않게 if문을 넣어준 다음 dfs를 돌려준다
+*/
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,8 +44,6 @@ public class Main {
 			return;
 		}
 
-		if (x >= n || y >= n)
-			return;
 
 		if (state == 1) { // 가로로 놓여져 있는 경우
 			// 계속 가로로 놓는다.
