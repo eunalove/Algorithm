@@ -1,3 +1,8 @@
+/*
+파이프옮기기1에서 메모이제이션 사용
+dp에 값을 저장해서 시작값을 출력함
+예를 들어 dp[0][1][0]은 0,1에서 n-1,n-1로 도착할 수 있는 모든 경로의 수를 저장함
+*/
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,11 +40,15 @@ public class Main {
 
         long res = dfs(0, 1, 0); // 시작 위치에서 가로 상태로 시작
         System.out.println(res);
+        //System.out.println(dp[0][1][0]);
+        
     }
 
     static long dfs(int x, int y, int state) {
         if (x == n - 1 && y == n - 1) {
             return 1; // 목표 지점에 도달하면 1을 반환
+            //1을 반환하면 자동으로 dfs()로 다시 돌아가서 ways에 1을 더하게 만듦
+      
         }
 
         if (dp[x][y][state] != -1) {
