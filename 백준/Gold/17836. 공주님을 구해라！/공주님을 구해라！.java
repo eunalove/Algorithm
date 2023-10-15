@@ -1,3 +1,10 @@
+/*
+배열크기 n,m을 n,n으로 착각하는 실수 때문에 시간을 잡아먹었다ㅠ
+1. 그냥 bfs를 돌린 값과 검을 가지고 bfs를 돌린 값을 비교한다
+bfs()는 그냥 최단거리, gram_bfs는 검을 가지러가는 최단거리, end_dfs는
+검을 가지고 도착지에 도착하는 최단거리를 구하는 함수임
+*/
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
