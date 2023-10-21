@@ -28,17 +28,17 @@ public class Main {
 
             int ans = 0;
 
-            HashSet<Integer> set = new HashSet<Integer>();
+            map1 = new long[n];
 
             
             for (int i = 0; i < n; i++) {
-                set.add(Integer.parseInt(br.readLine()));
+                map1[i]= Integer.parseInt(br.readLine());
             }
 
             
             for (int j = 0; j < m; j++) {
                 int cd = (Integer.parseInt(br.readLine()));
-                if (set.contains(cd)) {
+                if (Arrays.binarySearch(map1, cd) >= 0) {
                     ans += 1;
                 }
             }
