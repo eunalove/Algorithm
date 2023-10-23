@@ -1,3 +1,9 @@
+/*
+쉬운 시뮬레이션 문제
+주어진 문제에서 가장 작은 답을 구하는 경우는
+정렬했을 때임을 안다면 쉽게 풀림
+*/
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +32,6 @@ public class Main {
 		int sum_int= 0;
 		
 		int sum[]= new int[n];
-		sum[0]= list.get(0);
 		
 		for(int i=0; i<list.size(); i++) {
 			sum_int+=list.get(i); 
