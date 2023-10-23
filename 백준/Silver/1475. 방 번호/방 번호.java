@@ -33,9 +33,13 @@ public class Main {
 			
 		};
 		
-		Arrays.sort(arr);
 		
-		System.out.print(arr[8]);
+		for(int i=0; i<arr.length; i++) {
+			ans= Math.max(ans, arr[i]);
+			
+		}
+		
+		System.out.print(ans);
 		
 		
 		
