@@ -12,7 +12,7 @@ public class Main {
 		int k= sc.nextInt();
 		
 		Queue<int[]> queue= new ArrayDeque<int[]>();
-		boolean visited[]= new boolean[400001];
+		boolean visited[]= new boolean[200001];
 		
 		queue.offer(new int[] {n, 0});
 		
@@ -24,7 +24,7 @@ public class Main {
 				break; 
 			}
 			
-			if(!visited[node[0]] && node[0] > -1 && node[0] < 200001) {
+			if(!visited[node[0]] && node[0] > -1 && node[0] < 100001) {
 				
 				visited[node[0]]= true;
 			
