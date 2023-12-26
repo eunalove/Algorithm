@@ -60,8 +60,6 @@ public class Main {
 		 
 		 ans= Math.min(ans, arr[high]- arr[i]);
 		 
-         //이미 m값이 나왔으므로 더이상 탐색할 필요없음
-		 if(ans == m) break;
 		 
 	}
 	 }
