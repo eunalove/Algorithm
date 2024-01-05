@@ -1,3 +1,8 @@
+/*
+compareTo()는 문자열 하나하나를 사전순으로 비교함
+매번 람다식만 쓰다가 까먹음...
+음수면 작고 ==면 같고 양수면 크다
+*/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
