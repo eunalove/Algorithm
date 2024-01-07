@@ -1,4 +1,4 @@
-/*
+;/*
  * 처음 보자마자 dfs가 떠올랐고 조합으로 풀어야하나 싶었지만
  * 숫자가 최대 1000이라는걸 보고 아니란걸 알았다
  * HashSet을 쓰면 add가 O(1)의 시간복잡도를 가지므로 시간 내에 쓸 수 있다.
@@ -15,9 +15,10 @@ public class Main {
 		String str= br.readLine();
 		
 		Set<String> set= new HashSet();
+        int n= str.length();
 		
-		for(int i=0; i<str.length(); i++) {
-			for(int j=i+1; j<= str.length(); j++) {
+		for(int i=0; i<n; i++) {
+			for(int j=i+1; j< n+1; j++) {
 				set.add(str.substring(i,j));
 			}
 		}
