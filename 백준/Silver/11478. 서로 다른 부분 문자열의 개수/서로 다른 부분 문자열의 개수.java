@@ -1,33 +1,31 @@
+/*
+ * 처음 보자마자 dfs가 떠올랐고 조합으로 풀어야하나 싶었지만
+ * 숫자가 최대 1000이라는걸 보고 아니란걸 알았다
+ * HashSet을 쓰면 add가 O(1)의 시간복잡도를 가지므로 시간 내에 쓸 수 있다.
+ * 그리고 substring에서 endIndex는 꼭 인덱스+1 해야함
+ */
 import java.io.*;
 import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-			
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st;
+	
+	public static void main(String[] args)throws IOException {
 		
-		String s = br.readLine();
-		Set<String> set = new HashSet<>();
-		for(int i = 0; i < s.length(); i++) {
-			func(s, set, i);
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		String str= br.readLine();
+		
+		Set<String> set= new HashSet();
+		
+		for(int i=0; i<str.length(); i++) {
+			for(int j=i+1; j<= str.length(); j++) {
+				set.add(str.substring(i,j));
+			}
 		}
 		
-		bw.write(String.valueOf(set.size()));
+		System.out.println(set.size());
 		
-		bw.flush();
-		br.close();
-		bw.close();
 		
 	}
 	
-	
-	public static void func(String s, Set<String> set, int len) {
-		for(int i = 0; i < s.length()-len; i++) {
-			set.add(s.substring(i, i+1+len));
-		}
-	}
-	
-	
+
 }
