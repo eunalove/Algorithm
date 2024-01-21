@@ -1,3 +1,7 @@
+//long타입은 구십 이경 이십 삼조 삼천 칠백 이십 삼경 삼십 칠조 이십 일억 팔천 팔백이다...
+//이때까지 long타입이 2의64승-1인줄은 알았지만 실제로보니 훨씬 어마어마하게 큰 값이었다
+//백만*만이면 백억이 되므로 int타입을 넘는다
+
 import java.io.*;
 import java.io.InputStreamReader;
 import java.util.PriorityQueue;
