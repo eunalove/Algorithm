@@ -1,106 +1,71 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	static int V,E;
-	static int K; //시작정점
-	static ArrayList<Data>[] list;
-	static int[] D;
-	static int INF= 999_999_999;
-	static boolean[] visited;
-	
-	static class Data implements Comparable<Data>{
-		int v,w;
+    public static void main(String[] args)throws Exception {
 
-		public Data(int v, int w) {
-			super();
-			this.v = v;
-			this.w = w;
-		}
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st= new StringTokenizer(br.readLine());
 
-		@Override
-		public String toString() {
-			return "Data [v=" + v + ", w=" + w + "]";
-		}
+        //1. 첫 시작점에서 갈 수 있는 곳들의 거리와 최단거리 표의 값을 비교한다
+        //2. 만약 갈 수 있는 곳의 거리가 작으면 최단거리 표의 값을 바꾸고
+        //우선순위 큐에 넣는다
+        //3. 가장 거리가 작은 걸 우선순위 큐에서 꺼내서 1번으로 도르마무
 
-		@Override
-		public int compareTo(Data o) {
-			return Integer.compare(this.w, o.w);
-		}
-		
-	}
-	
-	public static void main(String[] args) {
-		
-	Scanner sc= new Scanner(System.in);
-	V= sc.nextInt();
-	E= sc.nextInt();
-	K= sc.nextInt();
-		
-	list= new ArrayList[V+1];
-	D= new int[V+1];
-	visited= new boolean[V+1];
-	
-	for(int i=1; i<V+1; i++)
-		list[i] = new ArrayList<Data>();
-	
-	int u,v,w;
-	
-	for(int i=0; i<E; i++) {
-		u = sc.nextInt();
-		v = sc.nextInt();
-		w = sc.nextInt();
-		list[u].add(new Data(v, w));
-		
-	}
-	
-	//다익스트라 구현
-	Arrays.fill(D, Integer.MAX_VALUE);
-	
-	PriorityQueue<Data> pQueue  = new PriorityQueue<>();
-	//시작 정점을 PQ에 삽입하기
-	pQueue.offer(new Data(K, 0));
-	D[K]=0;
-	
-	//큐가 빌 때까지 로직 구현(모든 정점까지의 비용이 구해질때까지)
-	Data cur;
-	int cnt= 0;
-	while(!pQueue.isEmpty()) {
-		//한 개 뽑아서 최단거리로 사용하기
-		cur= pQueue.poll();
-	
-		//이미 사용된 정점이면 무시하기
-		if(visited[cur.v])
-			continue;
-		
-		visited[cur.v] = true;//최단거리가 구해진 정점임
-		cnt++;
-		
-		if(cnt==V) //이 부분이 잘 이해가 안가...
-			break;
-		
-		//현재 연결된 정점에서 연결된 (최단거리가 아직 구해지지 않은)다른 정점의 비용을 업데이트하고
-		//큐에 삽입하기
-		for(Data d: list[cur.v]) {
-			if(visited[d.v])//사용중이면 컨티뉴
-				continue;
-			
-			if(D[d.v] > D[cur.v]+ d.w) {
-				D[d.v] = D[cur.v]+ d.w;
-				pQueue.offer(new Data(d.v, D[d.v]));
-			
-			}
-		}
-	}
-		
-	//출력
-		
-	for(int i=1; i<= V; i++){
-		System.out.println(D[i] == Integer.MAX_VALUE ? "INF": D[i]);
-	}
-	
-	}
+        int v= Integer.parseInt(st.nextToken());
+        int e= Integer.parseInt(st.nextToken());
 
+        int start= Integer.parseInt(br.readLine());
+
+        ArrayList<int[]>[] graph= new ArrayList[v+1];
+
+        for(int i=1; i<=v; i++)
+            graph[i]= new ArrayList<>();
+
+        for(int i=0; i<e; i++){
+            st= new StringTokenizer(br.readLine());
+
+            int v1= Integer.parseInt(st.nextToken());
+            int v2= Integer.parseInt(st.nextToken());
+            int w= Integer.parseInt(st.nextToken());
+
+            graph[v1].add(new int[]{v2, w});
+        }
+
+        int[] distance= new int[v+1]; //최단거리를 저장할 배열
+        for(int i=1; i<=v; i++)
+            distance[i]= Integer.MAX_VALUE; //초기화
+
+        PriorityQueue<int[]> pq= new PriorityQueue<int[]>((p1, p2)->{
+            return p1[1]- p2[1];
+        }); //가장 거리가 작은 정점을 찾아낼 pq
+
+        pq.add(new int[]{start, 0});
+        distance[start]= 0;
+
+        while(!pq.isEmpty()) {
+
+            int[] tmp= pq.poll();
+
+            for (int[] x : graph[tmp[0]]) { //0번째는 대상 정점, 1번째는 가중치
+                if (x[1]+ distance[tmp[0]] < distance[x[0]]) { //만약 최단거리 배열이 더 크다면
+
+                    distance[x[0]] = x[1]+ distance[tmp[0]];
+                    pq.add(new int[]{x[0], x[1]+ distance[tmp[0]] }); //pq에 추가함
+
+                }
+            }
+        }
+
+        StringBuilder sb= new StringBuilder();
+
+        for(int i=1; i<=v; i++) {
+            if(distance[i]== Integer.MAX_VALUE) sb.append("INF").append("\n");
+            else sb.append(distance[i]).append("\n");
+        }
+        System.out.print(sb);
+    }
 }
