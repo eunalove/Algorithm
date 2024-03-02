@@ -10,7 +10,7 @@ public class Main {
 
         BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb= new StringBuilder();
-        
+
         int cnt= 0;
         t1= new int[15];
         t2= new int[15];
@@ -52,7 +52,6 @@ public class Main {
 
     private static void dfs(int idx) {
 
-        if(avail) return;
         if(idx==15){
             avail= true;
             return;
