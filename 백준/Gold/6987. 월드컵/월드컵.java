@@ -3,20 +3,20 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-
-    static int[][] tmp= new int[6][3];
-    static int[] ans;
     static int[] t1, t2, win, lose, draw;
     static boolean avail;
 
     public static void main(String[] args)throws Exception {
 
         BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-
+        StringBuilder sb= new StringBuilder();
+        
         int cnt= 0;
         t1= new int[15];
         t2= new int[15];
 
+        //t1[]= {0 0 0 0 0 1 1 1 1 2 2 2 3 3 4};
+        //t2[]= {1 2 3 4 5 2 3 4 5 3 4 5 4 5 5};
         for(int i=0; i<5; i++){
             for(int j= i+1; j<6; j++){
                 t1[cnt] =i;
@@ -38,14 +38,14 @@ public class Main {
                 l+= lose[j]= Integer.parseInt(st.nextToken());
             }
 
+            //다 더해서 30이란거.. 굳이 필요할까?
             if(w+d+l != 30) avail= false;
             else dfs(0);
 
-            if(avail) System.out.print(1+" ");
-            else System.out.print(0+" ");
+            if(avail) sb.append(1).append(" ");
+            else sb.append(0).append(" ");
         }
-
-
+        System.out.print(sb);
 
     }
 
