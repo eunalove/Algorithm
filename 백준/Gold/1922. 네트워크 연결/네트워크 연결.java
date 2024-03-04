@@ -40,7 +40,7 @@ public class Main {
 
         }
         
-        long ans= 0;
+        int ans= 0;
 
         p = new int[v+1];
         for(int i=1; i<=v; i++)
