@@ -76,7 +76,7 @@ public class Main {
 
         if(a==p[a]) return a;
 
-        return find(p[a]);
+        return p[a]= find(p[a]);
 
     }
 
