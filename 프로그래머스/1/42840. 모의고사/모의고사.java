@@ -33,8 +33,6 @@ class Solution {
         if(ans2==max) ans.add(2);
         if(ans3==max) ans.add(3);
         
-        Collections.sort(ans);
-        
         return ans;
     }
 }
