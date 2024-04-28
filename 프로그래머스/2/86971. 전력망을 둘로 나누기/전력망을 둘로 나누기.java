@@ -4,37 +4,29 @@ class Solution {
     
     static ArrayList<Integer>[] graph;
     static int ans= Integer.MAX_VALUE;
-    static int[][] wires2;
     
     public int solution(int n, int[][] wires) {
-        wires2= new int[wires.length][2];
         
-        for(int i=0; i<wires.length; i++){
-            wires2[i][0]= wires[i][0];
-            wires2[i][1]= wires[i][1];
-        }
-        
-        for(int i=0; i< wires.length; i++){
-            init(i, n);
-            bfs(wires[0][0], n);
-        }
-        
-        return ans;
-    }
-    
-    static void init(int cur, int n){
         graph= new ArrayList[n+1];
         
         for(int i=1; i<=n; i++)
             graph[i]= new ArrayList<Integer>();
         
-         for(int i=0; i<wires2.length; i++){
-            if(i == cur) continue;
-            graph[wires2[i][0]].add(wires2[i][1]);
-            graph[wires2[i][1]].add(wires2[i][0]);
-            
+         for(int i=0; i<wires.length; i++){
+            graph[wires[i][0]].add(wires[i][1]);
+            graph[wires[i][1]].add(wires[i][0]);
         }
         
+        for(int i=0; i< wires.length; i++){
+            graph[wires[i][0]].remove(Integer.valueOf(wires[i][1]));
+            graph[wires[i][1]].remove(Integer.valueOf(wires[i][0]));
+            bfs(wires[0][0], n);
+            
+            graph[wires[i][0]].add(wires[i][1]);
+            graph[wires[i][1]].add(wires[i][0]);
+        }
+        
+        return ans;
     }
         
     static void bfs(int cur, int n){
