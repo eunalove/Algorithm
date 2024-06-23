@@ -1,64 +1,61 @@
 import java.util.*;
 
 class Solution {
-    
-    static ArrayList<Integer>[] graph;
-    static int ans= Integer.MAX_VALUE;
-    
+       
     public int solution(int n, int[][] wires) {
-        
-        graph= new ArrayList[n+1];
+        int ans= Integer.MAX_VALUE;
+      //제일 확실한 방법은, 그냥 모든 연결고리를 끊어보는 것
+      //그래프 문제
+      ArrayList<Integer>[] graph= new ArrayList[n+1];
         
         for(int i=1; i<=n; i++)
-            graph[i]= new ArrayList<Integer>();
+            graph[i]= new ArrayList<>();
         
-         for(int i=0; i<wires.length; i++){
-            graph[wires[i][0]].add(wires[i][1]);
-            graph[wires[i][1]].add(wires[i][0]);
+        for(int i=0; i<wires.length; i++){
+            
+            int from= wires[i][0];
+            int to= wires[i][1];
+            
+            graph[from].add(to);
+            graph[to].add(from);
+            
         }
         
-        for(int i=0; i< wires.length; i++){
-            graph[wires[i][0]].remove(Integer.valueOf(wires[i][1]));
-            graph[wires[i][1]].remove(Integer.valueOf(wires[i][0]));
-            bfs(wires[0][0], n);
+        for(int i=0; i<wires.length; i++){
             
-            graph[wires[i][0]].add(wires[i][1]);
-            graph[wires[i][1]].add(wires[i][0]);
+            int from= wires[i][0];
+            int to= wires[i][1];
+            
+            int val = bfs(from,to, wires, graph, n);
+            
+            ans= Math.min(Math.abs(n - 2* val), ans);
+            
         }
         
         return ans;
     }
+    
+    static int bfs(int from, int to, int[][] wires, ArrayList<Integer>[] graph, int n){
         
-    static void bfs(int cur, int n){
-        
-        Queue<Integer> q= new ArrayDeque<Integer>();
-        q.add(cur);
-        
+        Queue<Integer> q= new ArrayDeque<>();
         boolean[] vis= new boolean[n+1];
-        vis[cur]= true;
+        int cnt= 1;
+        
+        q.offer(from);
+        vis[from]= true;
         
         while(!q.isEmpty()){
             
-            int tmp= q.poll();
+            int cur= q.poll();
             
-            for(int x: graph[tmp]){
-                
-                if(!vis[x]){
-                    vis[x]= true;
-                    q.add(x);
-                }
-                
+            for(int node: graph[cur]){
+                if(vis[node] || node==to) continue;
+                vis[node]= true;
+                q.add(node);
+                cnt++;
             }
         }
         
-        int one = 0;
-        for(boolean v : vis) {
-            if(v) one++;
-        }
-        int two = n - one; // 전체 노드 수에서 one을 빼서 다른 그룹의 크기를 구함
-        
-        ans = Math.min(ans, Math.abs(one-two));
-        
-        
+        return cnt;
     }
 }
