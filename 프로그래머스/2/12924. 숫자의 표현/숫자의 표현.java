@@ -1,20 +1,20 @@
 class Solution {
     public int solution(int n) {
-        int ans = 0;
+        int ans = 1;
         int sum= 0;
         
-        for(int start=1; start<=n; start++){
-            sum =0;
-            for(int end=start; end<= n; end++){
+        for(int start=1; start<=n/2; start++){
+            sum= 0;
+            int end= start;
+            while(sum < n){
+                
                 sum+= end;
-                if(sum == n){
-                    ans++;
-                    sum= 0;
-                    break;
-                }
-                if(sum > n) break;
+                end++;
+                
             }
-        }
+            if(sum == n) ans++;
+            }
+        
         
         return ans;
     }
