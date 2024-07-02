@@ -3,31 +3,23 @@ import java.util.*;
 class Solution {
     public int solution(int k, int[] tan) {
         
-        //HashMap key는 귤의 크기, value는 뒷자리는 귤의 갯수
-        int ans= 0;
+        HashMap<Integer, Integer> map= new HashMap<>();
         
-        //map에 담기
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int t: tan)
+            map.put(t, map.getOrDefault(t, 0) +1);
         
-        for(int i: tan)
-            map.put(i, map.getOrDefault(i, 0) + 1);
+        ArrayList<Integer> list= new ArrayList<>(map.values());
+        Collections.sort(list, Collections.reverseOrder());
         
-        
-        //key 정렬
-        List<Integer> keyList= new ArrayList<Integer>(map.keySet());
-        
-        keyList.sort((k1, k2) -> map.get(k2) - map.get(k1));
-        
-        //앞에서부터 k개 뽑기
-        for(int key: keyList){
-            k-= map.get(key);
+        int ans= 0; int sum= 0;
+        for(int i=0; i<list.size(); i++){
             ans++;
-            if(k <= 0) break;
+            sum+= list.get(i);
+            if(sum >= k) break;
+            
         }
             
-                    
         return ans;
-        
         
     }
 }
