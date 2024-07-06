@@ -6,21 +6,20 @@ class Solution {
         
         Queue<String> queue = new LinkedList<>();
         
+        if (cacheSize == 0) return cities.length * 5;
+        
         for (String city : cities) {
             city = city.toUpperCase();
             if (queue.contains(city)) {
-                queue.remove(city);
-                queue.add(city);
-                ans += 1;  // Cache hit
+                queue.remove(city); // 히트된 항목 제거
+                ans += 1; // 캐시 히트
             } else {
-                if (queue.size() == cacheSize && cacheSize > 0) {
-                    queue.poll();
+                ans += 5; // 캐시 미스
+                if (queue.size() == cacheSize) {
+                    queue.poll(); // 가장 오래된 항목 제거
                 }
-                if (cacheSize > 0) {
-                    queue.add(city);
-                }
-                ans += 5;  // Cache miss
             }
+            queue.add(city); // 새로운 항목 추가
         }
         
         return ans;
