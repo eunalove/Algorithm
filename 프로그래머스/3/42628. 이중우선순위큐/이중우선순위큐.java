@@ -18,10 +18,12 @@ class Solution {
                 case "D": 
                    
                     if(!list.isEmpty()){
+                         
                         if(operArray[1].equals("1"))
                             list.remove(list.size() -1);
                         else list.remove(0);
                     }
+                    
             }
     }
         
