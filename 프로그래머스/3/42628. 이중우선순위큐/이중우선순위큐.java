@@ -1,52 +1,32 @@
 import java.util.*;
-import java.io.*;
 
 class Solution {
-    public int[] solution(String[] oper) {
+    public int[] solution(String[] opers) {
         
-        //1. 최소힙, 최대힙 생성
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list= new ArrayList<>();
         
-        // 'I'이면 추가, 'D'면 힙에서 삭제
-        for(String s: oper){
-            char c = s.charAt(0);
-            int cnt;
-            if (s.length() > 2) { // 'I' 또는 'D' 이후의 숫자 처리
-                cnt = Integer.parseInt(s.substring(2));
-            } else {
-                cnt = 0;
-            }
+        for(String oper: opers){
             
-            switch(c){
-                case 'I':
-                    list.add(cnt);
-                    break; // case 'I'에서 break가 누락되었습니다.
+            String[] operArray= oper.split(" ");
+            
+            switch(operArray[0]){
+                    
+                case "I": list.add(Integer.parseInt(operArray[1]));
+                            Collections.sort(list);
+                            break;
                 
-                case 'D':
-                    if(!list.isEmpty()) {
-                        Collections.sort(list); // 리스트 정렬
-                        if(cnt == -1){
-                            list.remove(0); // 최솟값 삭제   
-                        } else {
-                            list.remove(list.size() - 1); // 최댓값 삭제
-                        }
+                case "D": 
+                   
+                    if(!list.isEmpty()){
+                        if(operArray[1].equals("1"))
+                            list.remove(list.size() -1);
+                        else list.remove(0);
                     }
-                    break; // 이 break도 필요합니다.
             }
-        }
+    }
         
-        int[] ans = new int[2];
-        
-        if(list.isEmpty()){
-            ans[0] = 0;
-            ans[1] = 0;
-        }
-        else{
-            Collections.sort(list); // 결과 출력 전 정렬
-            ans[0] = list.get(list.size() - 1); // 최댓값
-            ans[1] = list.get(0); // 최솟값
-        }
-        
-        return ans;
+            
+            if(list.isEmpty()) return new int[]{0,0};
+            else return new int[]{list.get(list.size()-1), list.get(0)};
     }
 }
