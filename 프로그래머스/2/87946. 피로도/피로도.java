@@ -1,50 +1,30 @@
 import java.util.*;
 
-class Solution {
-    static int n, ans;
-    static boolean[] visited;
-    static int[] permul;
+class Solution {  
+    static int ans= 0;
     
-    public int solution(int k, int[][] dungeons) {
-        n= dungeons.length;
-        visited= new boolean[n];
-        permul= new int[n];
-        //순열을 이용해서 dungeons에서 갈 수 있는 모든 수를 구해보자
-        dfs(0, dungeons, k);
+    public int solution(int k, int[][] dungeons) { 
         
-        return ans;
+        boolean[] vis= new boolean[dungeons.length];
+        dfs(0, k, vis, dungeons);
         
-    }
+        return ans;  
+    }  
     
-    static void dfs(int L, int[][] dungeons, int k){
+    static void dfs(int cnt, int k, boolean[] vis, int[][] dungeons){
+            
+        ans= Math.max(ans, cnt);
         
-        if(L == n){
+        for(int i=0; i<dungeons.length; i++){
+            if(vis[i]) continue;
             
-            int max= 0;
-            int tmp= k;
-            
-            for(int i: permul){//1 3 2
-                
-                if(tmp>= dungeons[i][0]){
-                    tmp-= dungeons[i][1];
-                    max++;
-                }else break;
-                
+            if(dungeons[i][0] <= k) {
+            vis[i]= true;
+            dfs(cnt+1, k-dungeons[i][1], vis, dungeons);
+            vis[i]= false;
             }
             
-            ans= Math.max(ans, max);
-            return;
         }
-        
-        for(int i=0; i<n; i++){
-            
-            if(!visited[i]){
-                permul[L]= i;
-                visited[i]= true;
-                dfs(L+1, dungeons, k);
-                visited[i]= false;
-                
-            }
-        }
+    
     }
 }
