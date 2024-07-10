@@ -3,19 +3,15 @@ import java.util.*;
 class Solution {
     public int solution(int[] citations) {
         Arrays.sort(citations);
-        int ans= 0;
-        int n= citations.length;
-        
-        for(int h=1; h<n+1; h++){
-            for(int i=0; i<n; i++)
-                if(citations[i] >= h){
-                    if(n - i >= h){
-                        ans= Math.max(ans, h);
-                        break;
-                    }
-                }
+        int n = citations.length;
+
+        for (int i = 0; i < n; i++) {
+            int h = n - i;  // 현재 논문보다 많이 인용된 논문의 수
+            if (citations[i] >= h) {
+                return h;
+            }
         }
         
-        return ans;
+        return 0;
     }
 }
