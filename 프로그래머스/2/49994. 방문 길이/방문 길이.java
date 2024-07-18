@@ -1,59 +1,50 @@
-import java.util.*;
-
 class Solution {
     public int solution(String dirs) {
-        int n= dirs.length();
         
-        int ans = 0;
+        int[][] map = new int[11][11];
         boolean[][][] vis= new boolean[11][11][4];
-        int nx= 5;
-        int ny= 5;
+        int ans= 0;
         
-        for(int i=0; i<n; i++){
-            
+        int x= 5; int y= 5;
+        
+        for(int i=0; i<dirs.length(); i++){
+        
             switch(dirs.charAt(i)){
-                    
-                case 'U': if(nx-1 >= 0) {
-                    if(!vis[nx-1][ny][0] && !vis[nx][ny][1]) ans++;
-                    vis[nx-1][ny][0]= true;
-                    vis[nx][ny][1]= true;
-                    nx-=1;
-                    
+            
+                case 'U': if(x-1 >= 0){
+                    if(!vis[x][y][0] && !vis[x-1][y][1])ans++;
+                    vis[x][y][0]= true;
+                    x-=1;
+                    vis[x][y][1]= true;
                 }
                     break;
                     
-                case 'D': if(nx+1 <= 10){
-                    if(!vis[nx+1][ny][1] && !vis[nx][ny][0]) ans++;
-                    vis[nx+1][ny][1]= true;
-                    vis[nx][ny][0]= true;
-                    nx+=1;
-                    
-                } 
+                case 'D': if(x+1 <= 10){
+                    if(!vis[x][y][1] && !vis[x+1][y][0])ans++;
+                    vis[x][y][1]= true;
+                    x+=1;
+                    vis[x][y][0]= true;
+                }
                     break;
                     
-                case 'R': if(ny+1 <= 10){
-                    if(!vis[nx][ny+1][2] && !vis[nx][ny][3]) ans++;
-                    vis[nx][ny+1][2]= true;
-                    vis[nx][ny][3]= true;
-                    ny+=1;
-                    
-                } 
+                case 'R': if(y+1 <= 10){
+                    if(!vis[x][y][2] && !vis[x][y+1][3])ans++;
+                    vis[x][y][2]= true;
+                    y+=1;
+                    vis[x][y][3]= true;
+                }
                     break;
-                    
-                case 'L': if(ny-1 >= 0){
-                    if(!vis[nx][ny-1][3] && !vis[nx][ny][2]) ans++;
-                    vis[nx][ny-1][3]= true;
-                    vis[nx][ny][2]= true;
-                    ny-=1;
-                    
+            
+                case 'L':if(y-1 >= 0){
+                    if(!vis[x][y][3] && !vis[x][y-1][2])ans++;
+                    vis[x][y][3]= true;
+                    y-=1;
+                    vis[x][y][2]= true;
                 }
                     
             }
         
-        
         }
-        
-        
         return ans;
     }
 }
