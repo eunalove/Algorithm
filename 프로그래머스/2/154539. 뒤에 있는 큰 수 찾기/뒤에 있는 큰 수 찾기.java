@@ -2,26 +2,21 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] numbers) {
+    
+    int[] ans= new int[numbers.length];
+        Arrays.fill(ans, -1);
         
-        int n= numbers.length;
-        int[] ans= new int[n];
+     Stack<int[]> stack= new Stack<>();
         
-        for(int i=0; i<n; i++)
-            ans[i]= -1;
+    for(int i=0; i<numbers.length; i++){
+    
+        while(!stack.isEmpty() && stack.peek()[0] < numbers[i])
+            ans[stack.pop()[1]]= numbers[i];
         
-        Stack<int[]> stack= new Stack<>();
         
-        for(int i=0; i<n; i++){
-            
-            while(!stack.isEmpty() &&stack.peek()[1] < numbers[i]){
-                
-                ans[stack.peek()[0]]= numbers[i];
-                stack.pop();
-            }
-            stack.add(new int[]{i, numbers[i]});
-            
-        }
-        
+        stack.add(new int[]{numbers[i], i});
+    }
         return ans;
+    
     }
 }
